@@ -74,8 +74,12 @@ PRODUCT_PACKAGES := \
     lights.exynos4 \
     macloader \
     tinymix \
-    DeviceSettings \
+    DeviceSettings
+
+ifneq ($(TARGET_NO_CAM_FLASH) ,true)
+PRODUCT_PACKAGES += \
     Torch
+endif
 
 # MFC API
 PRODUCT_PACKAGES += \
