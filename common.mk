@@ -61,7 +61,6 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-    AdvancedDisplay \
     audio.a2dp.default \
     audio.primary.smdk4x12 \
     audio.usb.default \
@@ -75,7 +74,8 @@ PRODUCT_PACKAGES := \
     lights.exynos4 \
     macloader \
     tinymix \
-    Torch    
+    DeviceSettings \
+    Torch
 
 # MFC API
 PRODUCT_PACKAGES += \
