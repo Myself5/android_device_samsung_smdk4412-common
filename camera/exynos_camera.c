@@ -3734,6 +3734,7 @@ complete:
 
 void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 {
+	camera_memory_t *memory;
 	int i;
 
 	if (exynos_camera == NULL)
@@ -3745,6 +3746,8 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 		ALOGE("Recording thread was already stopped!");
 		return;
 	}
+
+	memory = exynos_camera->recording_memory;
 
 	if (exynos_camera->recording_listener != NULL) {
 		exynos_camera_capture_listener_unregister(exynos_camera, exynos_camera->recording_listener);
@@ -3773,6 +3776,11 @@ void exynos_camera_recording_thread_stop(struct exynos_camera *exynos_camera)
 
 	pthread_mutex_destroy(&exynos_camera->recording_mutex);
 	pthread_mutex_destroy(&exynos_camera->recording_lock_mutex);
+
+	if (memory != NULL && memory->release != NULL) {
+		memory->release(memory);
+		exynos_camera->recording_memory = NULL;
+	}
 }
 
 // Auto-focus
